@@ -1,13 +1,12 @@
 import { react, useState } from 'react'
-
-import './App.css'
+import styled from 'styled-components'
 
 function App () {
   const [counters, setCounters] = useState([{ id: crypto.randomUUID() }])
   return (
-    <div className='App'>
+    <Wrapper>
       <h1>Sentinals HP Tracker</h1>
-      <div className='mainBox'>
+      <MainBox>
         {counters.map((e, i) => (
           <div key={e.id}>
             <Counter />
@@ -28,8 +27,8 @@ function App () {
         >
           Create New
         </button>
-      </div>
-    </div>
+      </MainBox>
+    </Wrapper>
   )
 }
 
@@ -54,7 +53,7 @@ function Counter () {
     <>
       <br />
       <button onClick={increase}>+</button>
-      <span className='nameHolder'>{counter}</span>
+      <NameHolder>{counter}</NameHolder>
       <button onClick={decrease}> -</button>
       <button onClick={reset}>Reset</button>
     </>
@@ -62,3 +61,17 @@ function Counter () {
 }
 
 export default App
+
+const Wrapper = styled.div`
+  text-align: center;
+`
+const MainBox = styled.div`
+  border: solid 3px black;
+  min-width: 97vw;
+  min-height: 599px;
+  padding: 5px;
+`
+const NameHolder = styled.span`
+  padding-left: 10px;
+  padding-right: 10px;
+`
