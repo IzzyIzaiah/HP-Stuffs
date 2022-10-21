@@ -16,11 +16,10 @@ function App () {
                 setCounters(counters => counters.filter(obj => obj.id !== e.id))
               }}
             >
-              Harold
+              Delete
             </button>
           </div>
         ))}
-        {/* <Counter></Counter> THIS IS WHAT IT SHOULD DO */}
         <br />
         <button
           onClick={() => {
@@ -57,10 +56,7 @@ function Counter () {
       <button onClick={increase}>+</button>
       <span className='nameHolder'>{counter}</span>
       <button onClick={decrease}> -</button>
-      <button onClick={reset}>reset</button>
-      {/* 
-      <input type='text' placeholder='To be tracked...' />
-    <input type='button' className='submit-btn' value={'Track!'} /> */}
+      <button onClick={reset}>Reset</button>
     </>
   )
 }
