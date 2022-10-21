@@ -20,7 +20,6 @@ function App () {
             </button>
           </div>
         ))}
-        {/* <Counter></Counter> THIS IS WHAT IT SHOULD DO */}
         <br />
         <button
           onClick={() => {
