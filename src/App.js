@@ -2,14 +2,17 @@ import { react, useState } from 'react'
 import styled from 'styled-components'
 
 function App () {
-  const [counters, setCounters] = useState([{ id: crypto.randomUUID() }])
+  const [counters, setCounters] = useState([
+    { id: crypto.randomUUID(), name: 'Try me!' }
+  ])
+  const [text, setText] = useState('')
   return (
     <Wrapper>
       <h1>Sentinals HP Tracker</h1>
       <MainBox>
         {counters.map((e, i) => (
           <div key={e.id}>
-            <Counter />
+            <Counter name={e.name} />
             <button
               onClick={() => {
                 setCounters(counters => counters.filter(obj => obj.id !== e.id))
@@ -20,9 +23,28 @@ function App () {
           </div>
         ))}
         <br />
+        <input
+          value={text}
+          placeholder='Name Here!'
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              setText(e.target.value)
+              setCounters(counters => [
+                ...counters,
+                { id: crypto.randomUUID(), name: text }
+              ])
+              setText('')
+            }
+          }}
+          onChange={e => setText(e.target.value)}
+        />
         <button
           onClick={() => {
-            setCounters(counters => [...counters, { id: crypto.randomUUID() }])
+            setCounters(counters => [
+              ...counters,
+              { id: crypto.randomUUID(), name: text }
+            ])
+            setText('')
           }}
         >
           Create New
@@ -32,7 +54,7 @@ function App () {
   )
 }
 
-function Counter () {
+function Counter ({ name }) {
   const [counter, setCounter] = useState(0)
   //increase counter
   const increase = () => {
@@ -52,6 +74,7 @@ function Counter () {
   return (
     <>
       <br />
+      <Examble>{name}</Examble>
       <button onClick={increase}>+</button>
       <NameHolder>{counter}</NameHolder>
       <button onClick={decrease}> -</button>
@@ -73,5 +96,9 @@ const MainBox = styled.div`
 `
 const NameHolder = styled.span`
   padding-left: 10px;
+  padding-right: 10px;
+`
+
+const Examble = styled.span`
   padding-right: 10px;
 `
