@@ -1,7 +1,7 @@
-import { react, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 
-function App () {
+export default function App () {
   const [counters, setCounters] = useState([
     { id: crypto.randomUUID(), name: 'Try me!' }
   ])
@@ -9,18 +9,18 @@ function App () {
   return (
     <Wrapper>
       <div>
-      <h1>Sentinals HP Tracker</h1>
-      <ListItem>Name</ListItem>
-      <ListItem>HP</ListItem>
-      <ListItem>Damage Recieved</ListItem>
-      <ListItem>Damage Dealt</ListItem>
+        <h1>Sentinals HP Tracker</h1>
+        <ListItem>Name</ListItem>
+        <ListItem>HP</ListItem>
+        <ListItem>Damage Recieved</ListItem>
+        <ListItem>Damage Dealt</ListItem>
       </div>
       <MainBox>
         {counters.map((e, i) => (
           <div key={e.id}>
             <Counter name={e.name} />
             <StyledButton
-            className="npnm" 
+              className='npnm'
               onClick={() => {
                 setCounters(counters => counters.filter(obj => obj.id !== e.id))
               }}
@@ -46,7 +46,7 @@ function App () {
           onChange={e => setText(e.target.value)}
         />
         <StyledButton
-        className="npnm" 
+          className='npnm'
           onClick={() => {
             setCounters(counters => [
               ...counters,
@@ -84,7 +84,7 @@ function Counter ({ name }) {
   const decrease = () => {
     setCounter(count => count - 1)
   }
-  const damageRecievedDecrease= () => {
+  const damageRecievedDecrease = () => {
     setDR(dr => dr - 1)
   }
   const damageDealtDecrease = () => {
@@ -104,19 +104,25 @@ function Counter ({ name }) {
       <Examble>{name}</Examble>
       <StyledButton onClick={increase}>+</StyledButton>
       <NameHolder>{counter}</NameHolder>
-      <StyledButton className="minus" onClick={decrease}> -</StyledButton>
+      <StyledButton className='minus' onClick={decrease}>
+        -
+      </StyledButton>
       <StyledButton onClick={damageRecievedIncrease}>+</StyledButton>
-      <NameHolder>{dr}</NameHolder>
-      <StyledButton className="minus" onClick={damageRecievedDecrease}> -</StyledButton>
+      <NameHolder>{dr > 0 ? `+${dr}` : dr}</NameHolder>
+      <StyledButton className='minus' onClick={damageRecievedDecrease}>
+        -
+      </StyledButton>
       <StyledButton onClick={damageDealtIncrease}>+</StyledButton>
-      <NameHolder>{dd => {if(dd > 0) return `+${dd}`}}</NameHolder>
-      <StyledButton className="minus" onClick={damageDealtDecrease}> -</StyledButton>
-      <StyledButton className="npnm" onClick={reset}>Reset</StyledButton>
+      <NameHolder>{dd > 0 ? `+${dd}` : dd}</NameHolder>
+      <StyledButton className='minus' onClick={damageDealtDecrease}>
+        -
+      </StyledButton>
+      <StyledButton className='npnm' onClick={reset}>
+        Reset
+      </StyledButton>
     </>
   )
 }
-
-export default App
 
 const Wrapper = styled.div`
   text-align: center;
@@ -136,42 +142,43 @@ const Examble = styled.span`
   padding-right: 10px;
   margin-left: 220px;
   margin-right: 20px;
-  margin-bottom:5px;
+  margin-bottom: 5px;
 `
 
 const StyledButton = styled.button`
-cursor: pointer;
-outline: 0;
-text-align: center;
-background-color: transparent;
-border: 1px solid transparent;
-padding-left: 10px;
-padding-right: 10px;
-font-size: 1rem;
-border-radius: .25rem;
-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-color: #0d6efd;
-height: 26px;
-:hover {
+  cursor: pointer;
+  outline: 0;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: #0d6efd;
+  height: 26px;
+  :hover {
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
-}
-&.npnm{
-  margin-left: 40px;
-margin-right: 40px;
-margin-bottom:5px;
-}
-&.minus{
-  margin-right:40px;
-}
-&.plus{
-  margin-left:40px
-}
+  }
+  &.npnm {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 5px;
+  }
+  &.minus {
+    margin-right: 40px;
+  }
+  &.plus {
+    margin-left: 40px;
+  }
 `
 
 const ListItem = styled.span`
-margin-left: 40px;
-margin-right: 40px;
-margin-bottom:5px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 5px;
 `
