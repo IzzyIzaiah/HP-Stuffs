@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 
+// const titleFields = { id: 'titles', fields: ['name', 'dd', 'dr'] }
+
 export default function App () {
   const [counters, setCounters] = useState([
     { id: crypto.randomUUID(), name: 'Try me!' }
@@ -9,60 +11,58 @@ export default function App () {
   return (
     <Wrapper>
       <div>
-        <h1>Sentinals HP Tracker</h1>
+        <h1>Sentinals Tracker</h1>
         <ListItem>Name</ListItem>
         <ListItem>HP</ListItem>
         <ListItem>Damage Recieved</ListItem>
         <ListItem>Damage Dealt</ListItem>
+        <StyledButton onClick={() => setCounters([])}>Delete All</StyledButton>
       </div>
       <MainBox>
         {counters.map((e, i) => (
-          <div key={e.id}>
-            <Counter name={e.name} />
-            <StyledButton
-              className='npnm'
-              onClick={() => {
-                setCounters(counters => counters.filter(obj => obj.id !== e.id))
-              }}
-            >
-              Delete
-            </StyledButton>
-          </div>
+          <Counter
+            key={e.id}
+            name={e.name}
+            deleteFn={() => {
+              setCounters(counters => counters.filter(obj => obj.id !== e.id))
+            }}
+          />
         ))}
         <br />
-        <input
-          value={text}
-          placeholder='Name Here!'
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              setText(e.target.value)
+        <div>
+          <input
+            value={text}
+            placeholder='Name Here!'
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                setText(e.target.value)
+                setCounters(counters => [
+                  ...counters,
+                  { id: crypto.randomUUID(), name: text }
+                ])
+                setText('')
+              }
+            }}
+            onChange={e => setText(e.target.value)}
+          />
+          <StyledButton
+            onClick={() => {
               setCounters(counters => [
                 ...counters,
                 { id: crypto.randomUUID(), name: text }
               ])
               setText('')
-            }
-          }}
-          onChange={e => setText(e.target.value)}
-        />
-        <StyledButton
-          className='npnm'
-          onClick={() => {
-            setCounters(counters => [
-              ...counters,
-              { id: crypto.randomUUID(), name: text }
-            ])
-            setText('')
-          }}
-        >
-          Create New
-        </StyledButton>
+            }}
+          >
+            Create New
+          </StyledButton>
+        </div>
       </MainBox>
     </Wrapper>
   )
 }
 
-function Counter ({ name }) {
+function Counter ({ name, deleteFn }) {
   const [counter, setCounter] = useState(0)
   // Damag Recieved (DR)
   const [dr, setDR] = useState(0)
@@ -99,50 +99,58 @@ function Counter ({ name }) {
   }
 
   return (
-    <>
-      <br />
-      <Examble>{name}</Examble>
-      <StyledButton onClick={increase}>+</StyledButton>
-      <NameHolder>{counter}</NameHolder>
-      <StyledButton className='minus' onClick={decrease}>
-        -
-      </StyledButton>
-      <StyledButton onClick={damageRecievedIncrease}>+</StyledButton>
-      <NameHolder>{dr > 0 ? `+${dr}` : dr}</NameHolder>
-      <StyledButton className='minus' onClick={damageRecievedDecrease}>
-        -
-      </StyledButton>
-      <StyledButton onClick={damageDealtIncrease}>+</StyledButton>
-      <NameHolder>{dd > 0 ? `+${dd}` : dd}</NameHolder>
-      <StyledButton className='minus' onClick={damageDealtDecrease}>
-        -
-      </StyledButton>
-      <StyledButton className='npnm' onClick={reset}>
-        Reset
-      </StyledButton>
-    </>
+    <CounterWrap>
+      <ItemName>{name}</ItemName>
+      <span>
+        <StyledButton onClick={increase}>+</StyledButton>
+        <CountHolder>{counter}</CountHolder>
+        <StyledButton onClick={decrease}>-</StyledButton>
+      </span>
+      <span>
+        <StyledButton onClick={damageRecievedIncrease}>+</StyledButton>
+        <CountHolder>{dr > 0 ? `+${dr}` : dr}</CountHolder>
+        <StyledButton onClick={damageRecievedDecrease}>-</StyledButton>
+      </span>
+      <span>
+        <StyledButton onClick={damageDealtIncrease}>+</StyledButton>
+        <CountHolder>{dd > 0 ? `+${dd}` : dd}</CountHolder>
+        <StyledButton onClick={damageDealtDecrease}>-</StyledButton>
+      </span>
+      <StyledButton onClick={reset}>Reset</StyledButton>
+      <StyledButton onClick={deleteFn}>Delete</StyledButton>
+    </CounterWrap>
   )
 }
 
 const Wrapper = styled.div`
   text-align: center;
+  & > div {
+    margin-right: 200px;
+  }
 `
 const MainBox = styled.div`
   border: solid 3px black;
   min-width: 97vw;
   min-height: 599px;
   padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
-const NameHolder = styled.span`
+const CountHolder = styled.span`
   padding-left: 10px;
   padding-right: 10px;
 `
 
-const Examble = styled.span`
-  padding-right: 10px;
-  margin-left: 220px;
-  margin-right: 20px;
-  margin-bottom: 5px;
+const ItemName = styled.div`
+  position: absolute;
+  left: calc(15% - 210px);
+  /* left: 20vw; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+  display: block;
 `
 
 const StyledButton = styled.button`
@@ -164,21 +172,18 @@ const StyledButton = styled.button`
     background-color: #0d6efd;
     border-color: #0d6efd;
   }
-  &.npnm {
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-bottom: 5px;
-  }
-  &.minus {
-    margin-right: 40px;
-  }
-  &.plus {
-    margin-left: 40px;
-  }
 `
 
 const ListItem = styled.span`
   margin-left: 40px;
   margin-right: 40px;
   margin-bottom: 5px;
+`
+
+const CounterWrap = styled.div`
+  position: relative;
+  width: 750px;
+  & > * {
+    margin: 10px 20px;
+  }
 `
