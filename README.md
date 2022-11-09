@@ -1,8 +1,18 @@
-# This is going to be my HP-Tracker for the game sentininals of the multiverse
+# Purpose of the Code
 
----THIS IS GONNA BE COOL I JUST KNOW IT---
+The purpose of this code is to track all(most) stats for hard to track games with tokens like sentinals of the multiverse.
+(low key just to pad my resume/site)
 
-my todo list:
-1:Create number tracker (object)
-2:Create container to replicate object
-3:Create Name-boxes compatable for each character's hp/insanity-points/whatever other number you need
+## To-Do List
+
+- Fix formatting / prettier
+- Add hyperlink between main site and tracker
+- Directional dis/advantages
+- Color code
+- Original HP box - persistance on reset button
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start` or `yarn start`
