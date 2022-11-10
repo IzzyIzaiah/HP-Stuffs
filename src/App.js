@@ -11,6 +11,9 @@ export default function App () {
   return (
     <Wrapper>
       <div>
+        <ListItem>
+          <a href='https://izaiah.pro/'>&lt;&lt; Back</a>
+        </ListItem>
         <h1>Sentinals Tracker</h1>
         <ListItem>Name</ListItem>
         <ListItem>HP</ListItem>
@@ -125,12 +128,12 @@ function Counter ({ name, deleteFn }) {
 const Wrapper = styled.div`
   text-align: center;
   & > div {
-    margin-right: 200px;
+    /* margin-right: 200px; */
   }
 `
 const MainBox = styled.div`
   border: solid 3px black;
-  min-width: 97vw;
+  min-width: calc(100% - 16px);
   min-height: 599px;
   padding: 5px;
   display: flex;
@@ -194,6 +197,7 @@ const ListItem = styled.span`
 const CounterWrap = styled.div`
   position: relative;
   width: 750px;
+  margin-left: calc(100% - 88%);
   & > * {
     margin: 10px 20px;
   }
