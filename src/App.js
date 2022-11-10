@@ -100,7 +100,7 @@ function Counter ({ name, deleteFn }) {
 
   return (
     <CounterWrap>
-      <ItemName>{name}</ItemName>
+      <ItemName title={name}>{name}</ItemName>
       <span>
         <StyledButton onClick={increase}>+</StyledButton>
         <CountHolder>{counter}</CountHolder>
@@ -151,6 +151,17 @@ const ItemName = styled.div`
   text-overflow: ellipsis;
   width: 150px;
   display: block;
+  //DORMANT ONHOVER COOL THING I WAS KINDA WORKING ON
+  /* &:hover {
+    background-color: #ddd;
+    contain: paint;
+    display: inline-flex;
+    outline: 1px solid;
+    text-align: center;
+    min-width: 20rem;
+    white-space: normal;
+    word-wrap: break-word;
+  } */
 `
 
 const StyledButton = styled.button`
