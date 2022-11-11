@@ -11,9 +11,11 @@ export default function App () {
   return (
     <Wrapper>
       <div>
-        <ListItem>
-          <a href='https://izaiah.pro/'>&lt;&lt; Back</a>
-        </ListItem>
+        <BackLeft>
+          <StyledButton>
+            <LinkBack href='https://izaiah.pro/'>&lt;&lt; Back</LinkBack>
+          </StyledButton>
+        </BackLeft>
         <h1>Sentinals Tracker</h1>
         <ListItem>Name</ListItem>
         <ListItem>HP</ListItem>
@@ -186,6 +188,9 @@ const StyledButton = styled.button`
     background-color: #0d6efd;
     border-color: #0d6efd;
   }
+  & > a:hover {
+    color: #fff;
+  }
 `
 
 const ListItem = styled.span`
@@ -201,4 +206,15 @@ const CounterWrap = styled.div`
   & > * {
     margin: 10px 20px;
   }
+`
+
+const LinkBack = styled.a`
+  text-decoration: none;
+  color: #0d6efd;
+`
+
+const BackLeft = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
 `
