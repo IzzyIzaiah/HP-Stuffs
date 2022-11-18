@@ -25,6 +25,9 @@ export default function App () {
         <ListItem>Damage Recieved</ListItem>
         <ListItem>Damage Dealt</ListItem>
         <StyledButton onClick={() => setCounters([])}>Delete All</StyledButton>
+        {/* <StyledButton onClick={() => Counter.resetall()}>
+          Reset All
+        </StyledButton> */}
       </div>
       <MainBox>
         {counters.map((e, i) => (
@@ -119,6 +122,8 @@ function Counter ({ name, deleteFn, initHP }) {
     setDD(0)
     setDR(0)
   }
+
+  // const resetall = () => {}
 
   return (
     <CounterWrap>
