@@ -3,17 +3,20 @@ import styled from 'styled-components'
 
 // const titleFields = { id: 'titles', fields: ['name', 'dd', 'dr'] }
 
+let tempguy = []
+
 export default function App () {
   const [counters, setCounters] = useState([
-    { id: crypto.randomUUID(), name: 'Try me!' }
+    { id: crypto.randomUUID(), name: 'Try me!', initHP: 0 }
   ])
   const [text, setText] = useState('')
+  const [hp, setHP] = useState(0)
   return (
     <Wrapper>
       <div>
         <BackLeft>
           <StyledButton>
-            <LinkBack href='https://izaiah.pro/'>&lt;&lt; Back</LinkBack>
+            <LinkBack href='https://izaiah.pro/work'>&lt;&lt; Back</LinkBack>
           </StyledButton>
         </BackLeft>
         <h1>Sentinals Tracker</h1>
@@ -28,6 +31,7 @@ export default function App () {
           <Counter
             key={e.id}
             name={e.name}
+            initHP={e.initHP}
             deleteFn={() => {
               setCounters(counters => counters.filter(obj => obj.id !== e.id))
             }}
@@ -35,6 +39,15 @@ export default function App () {
         ))}
         <br />
         <div>
+          {/* BEGINNING OF HP PERSISITENCE */}
+          <input
+            value={hp}
+            type='number'
+            placeholder='HP'
+            onChange={e => {
+              setHP(+e.target.value)
+            }}
+          />
           <input
             value={text}
             placeholder='Name Here!'
@@ -43,9 +56,11 @@ export default function App () {
                 setText(e.target.value)
                 setCounters(counters => [
                   ...counters,
-                  { id: crypto.randomUUID(), name: text }
+                  { id: crypto.randomUUID(), name: text, initHP: hp }
                 ])
                 setText('')
+                setHP(0)
+                // tempguy.push(e.name,)
               }
             }}
             onChange={e => setText(e.target.value)}
@@ -54,9 +69,10 @@ export default function App () {
             onClick={() => {
               setCounters(counters => [
                 ...counters,
-                { id: crypto.randomUUID(), name: text }
+                { id: crypto.randomUUID(), name: text, initHP: hp }
               ])
               setText('')
+              setHP(0)
             }}
           >
             Create New
@@ -67,8 +83,9 @@ export default function App () {
   )
 }
 
-function Counter ({ name, deleteFn }) {
-  const [counter, setCounter] = useState(0)
+function Counter ({ name, deleteFn, initHP }) {
+  // This is the inital counter to track hp >:(
+  const [counter, setCounter] = useState(initHP)
   // Damag Recieved (DR)
   const [dr, setDR] = useState(0)
   // Damage Dealt (DD)
@@ -98,7 +115,7 @@ function Counter ({ name, deleteFn }) {
 
   //reset counter
   const reset = () => {
-    setCounter(0)
+    setCounter(initHP)
     setDD(0)
     setDR(0)
   }
