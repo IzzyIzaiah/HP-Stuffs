@@ -158,7 +158,7 @@ const Wrapper = styled.div`
 const MainBox = styled.div`
   border: solid 3px black;
   min-width: calc(100% - 16px);
-  min-height: 599px;
+  min-height: 83vh;
   padding: 5px;
   display: flex;
   flex-direction: column;

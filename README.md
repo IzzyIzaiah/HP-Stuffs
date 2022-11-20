@@ -27,11 +27,14 @@ In the project directory, you can run:
 <br />
 <br />
 
-## Extras
+# Extras
 
 <br />
-[Heres my site!](https://izaiah.pro)
+
+Check out [My site](https://www.izaiah.pro)!!.
 <br />
+
 Support for this project came from [my brother](https://www.hunterosmun.com/)
 <br />
+
 The site is hosted through [render](https://render.com) and the domain is hosted through [CloudFlare](https://www.cloudflare.com/)
